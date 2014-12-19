@@ -1,0 +1,26 @@
+.image-view {
+  border-bottom: 1px solid #aaa;
+  p {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 0;
+
+    &.description {
+      margin-bottom: -5px;
+    }
+  }
+  @image-placeholder: 400px;
+  .image-placeholder {
+    text-align: center;
+    .box {
+      background-color: black;
+      max-height: @image-placeholder;
+      margin: 0 auto;
+      img {
+        vertical-align:middle;
+        max-width:@image-placeholder;
+        max-height:@image-placeholder;
+      }
+    }
+  }
+}

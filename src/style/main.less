@@ -1,0 +1,31 @@
+// Contents of this folder applies all style globally. You are free to 
+
+// The `material-ui` folder will be present after `npm install` has been called.
+// `npm install` downloads all dependencies from npm, and stores them in the
+// `node_modules` folder (in the root of the project; not in this local folder).
+//
+// If the `material-ui` folder does not exist locally, then you may consider
+// first checking if the `node_modules` folder exists in the root of this
+// project. If it doesn't, then run `npm install` (from the root of the
+// project!). If it does, then you should, instead, run `npm postinstall`.
+@import "material-ui/scaffolding.less";
+
+.logo {
+  cursor: pointer;
+  .mui-font-style-headline;
+  .mui-text-full-white;
+  line-height: @app-bar-height;
+  .mui-font-weight-light;
+  background-color: @primary-1-color;
+  padding-left: @desktop-gutter;
+  padding-top: 0;
+  margin-bottom: @desktop-gutter-mini;
+}
+
+// **YOUR CUSTOM STYLE START**
+
+// This is where you would optionally add your styles.
+
+// **YOUR CUSTOM STYLE END**
+
+@import "material-ui/components.less";
