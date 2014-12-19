@@ -8,7 +8,6 @@ var injectTapEventPlugin = require("react-tap-event-plugin");
 // around a little. However, **BE CAREFUL WHILE DELETING SOME OF THE COMMENTS IN
 // THIS FILE; THE AUTO-GENERATORS RELY ON SOME OF THEM**.
 
-// TEMPLATE: the home page will always be the initail default.
 var HomePage = require('./pages/HomePage');
 // inject:pagerequire
 // endinject
@@ -20,9 +19,8 @@ var menuItems = [
 ];
 
 var titles = {
-  '/home': 'Imgur Viewer',
+  '/home': '<%= title %>',
   // inject:titles
-  '/favorites': 'Favorite Images'
   // endinject
 };
 
@@ -99,11 +97,9 @@ var Master = React.createClass({
 
 var routes = (
   <Route name='app' path='/' handler={Master}>
-    {/* TEMPLATE: The home page will always be the default. */}
     <Route name='home' handler={HomePage} />
-    {/* TEMPLATE: new pages get injected here. */}
-    <Route name='favorites' handler={FavoritesPage} />
-    {/* TEMPLATE: end page injection. */}
+    {/* inject:route */}
+    {/* endinject */}
     <DefaultRoute handler={HomePage} />
   </Route>
 );
