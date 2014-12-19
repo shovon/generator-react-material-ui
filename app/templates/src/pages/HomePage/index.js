@@ -1,6 +1,4 @@
 var React = require('react');
-var ImageStore = require('../../stores/ImageStore');
-var HomeView = require('../../views/HomeView');
 var Fluxxor = require('Fluxxor');
 
 // If you want to leverage the use of stores, a suggestion would be to
@@ -32,26 +30,11 @@ var Fluxxor = require('Fluxxor');
 //
 //     <SomeView flux={flux} />
 
-// TEMPLATE: remove this.
-var stores = {
-  ImageStore: new ImageStore()
-};
-
-// TEMPLATE: remove this.
-var actions = {
-  likedImage: function (image) {
-    this.dispatch('LIKED_IMAGE', {image: image});
-  }
-};
-
-// TEMPLATE: remove this.
-var flux = new Fluxxor.Flux(stores, actions);
-
 module.exports = React.createClass({
   render: function () {
     return (
       <div className='home-page'>
-        <HomeView flux={flux} />
+        This is the home page.
       </div>
     );
   }

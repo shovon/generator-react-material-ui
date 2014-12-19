@@ -15,10 +15,11 @@ module.exports = generators.Base.extend({
     }, function (answers) {
       this.apptitle = answers.title;
       done();
-    });
+    }.bind(this));
   },
 
   writing: function () {
+    this.log(this.apptitle);
     this.fs.copyTpl(
       this.templatePath('src/index.html'),
       this.destinationPath('src/index.html'),
@@ -27,14 +28,16 @@ module.exports = generators.Base.extend({
     this.fs.copyTpl(
       this.templatePath('src/app.jsx'),
       this.destinationPath('src/app.jsx'),
-      { title: this.apptitle}
+      { title: this.apptitle }
     );
     [
       '.gitignore',
       'gulpfile.js',
       'package.json',
       'src/style/main.less',
-      'src/style/README.md'
+      'src/style/README.md',
+      'src/pages/HomePage/index.js',
+      'src/pages/HomePage/index.less'
     ].forEach(function (filename) {
       this.fs.copy(
         this.templatePath(filename),
