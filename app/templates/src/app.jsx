@@ -10,24 +10,20 @@ var injectTapEventPlugin = require("react-tap-event-plugin");
 
 // TEMPLATE: the home page will always be the initail default.
 var HomePage = require('./pages/HomePage');
-// TEMPLATE: new pages get injected here.
-var FavoritesPage = require('./pages/FavoritesPage');
-// TEMPLATE: end page injection.
+// inject:pagerequire
+// endinject
 
 var menuItems = [
-  // TEMPLATE: the home page will always be the initial default.
   { payload: 'home', text: 'Home' },
-  // TEMPLATE: new pages get injected here.
-  { payload: 'favorites', text: 'Favorites' }
-  // TEMPLATE: end page injection.
+  // inject:menuitems
+  // endinject
 ];
 
 var titles = {
-  // TEMPLATE: the home page will always be the initial default.
   '/home': 'Imgur Viewer',
-  // TEMPLATE: new pages get injected here.
+  // inject:titles
   '/favorites': 'Favorite Images'
-  // TEMPLATE: end page injection.
+  // endinject
 };
 
 var Route = Router.Route;
