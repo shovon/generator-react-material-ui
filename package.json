@@ -1,10 +1,23 @@
 {
   "name": "generator-react-material-ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A generator for Material Design-inspired React application",
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator",
+    "react",
+    "material-design"
   ],
+  "homepage": "https://github.com/shovon/generator-react-material-ui",
+  "bugs": "https://github.com/shovon/generator-react-material-ui/issues",
+  "license": "MIT",
+  "author": {
+    "name": "Salehen Shovon Rahman",
+    "email": "salehen.rahman@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shovon/generator-react-material-ui.git"
+  },
   "dependencies": {
     "async": "^0.9.0",
     "yeoman-generator": "^0.18.4"
