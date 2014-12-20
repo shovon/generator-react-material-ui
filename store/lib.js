@@ -11,16 +11,18 @@ var prompt = module.exports.prompt = function (callback) {
       // Async to prevent stack overflows.
       return setImmediate(function () {
         prompt();
-      })
+      });
     }
     callback(null, answers.storename.trim());
   });
 };
 
-module.exports.create = function (storename) {
+module.exports.create = function (storename, filepath) {
+  filepath = filepath || 'Store.js';
   storename = helpers.createClassName(storename);
+  console.log(filepath);
   this.fs.copy(
-    this.templatePath('Store.js'),
+    filepath,
     this.destinationPath('src/stores/' + storename + 'Store.js')
   );
 };
