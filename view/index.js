@@ -83,8 +83,7 @@ module.exports = generators.Base.extend({
         '..',
         '..',
         'store',
-        'templates',
-        'Store.js'
+        'templates'
       );
       this.fs.copyTpl(
         this.templatePath('ViewStore.js'),

@@ -1,4 +1,5 @@
 var helpers = require('../helpers');
+var path = require('path');
 
 var prompt = module.exports.prompt = function (callback) {
   this.prompt({
@@ -18,11 +19,16 @@ var prompt = module.exports.prompt = function (callback) {
 };
 
 module.exports.create = function (storename, filepath) {
-  filepath = filepath || 'Store.js';
+  filepath = filepath || '';
   storename = helpers.createClassName(storename);
-  console.log(filepath);
+  var destpath =
+    this.destinationPath('src/stores/' + storename + 'Store');
   this.fs.copy(
-    filepath,
-    this.destinationPath('src/stores/' + storename + 'Store.js')
+    path.join(filepath, 'Store.js'),
+    path.join(destPath, 'index.js')
+  );
+  this.fs.copy(
+    path.join(filepath, 'Store-test.js'),
+    path.join(destPath, '__tests__', 'index-test.js')
   );
 };
