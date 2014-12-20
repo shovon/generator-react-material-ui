@@ -21,7 +21,7 @@ var prompt = module.exports.prompt = function (callback) {
 module.exports.create = function (storename, filepath) {
   filepath = filepath || '';
   storename = helpers.createClassName(storename);
-  var destpath =
+  var destPath =
     this.destinationPath('src/stores/' + storename + 'Store');
   this.fs.copy(
     path.join(filepath, 'Store.js'),

@@ -78,7 +78,9 @@ module.exports = generators.Base.extend({
 
     this.fs.copy(
       this.templatePath('View-test.js'),
-      this.destinationPath('src/views/' + viewClassName + 'V')
+      this.destinationPath(
+        'src/views/' + viewClassName + 'View/__tests__/index-test.js'
+      )
     );
 
     if (this.shouldInitializeStore) {
