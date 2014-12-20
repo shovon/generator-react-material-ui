@@ -76,6 +76,11 @@ module.exports = generators.Base.extend({
   writing: function () {
     var viewClassName = helpers.createClassName(this.viewname);
 
+    this.fs.copy(
+      this.templatePath('View-test.js'),
+      this.destinationPath('src/views/' + viewClassName + 'V')
+    );
+
     if (this.shouldInitializeStore) {
       var storeClassName = helpers.createClassName(this.storename);
       var storepath = path.resolve(
@@ -87,7 +92,7 @@ module.exports = generators.Base.extend({
       );
       this.fs.copyTpl(
         this.templatePath('ViewStore.js'),
-        this.destinationPath('src/views/' + viewClassName + 'View.js'),
+        this.destinationPath('src/views/' + viewClassName + 'View/index.js'),
         { name: this.viewname, storename: storeClassName + 'Store' }
       );
       storelib.create.bind(this)(this.storename, storepath);
