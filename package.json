@@ -6,6 +6,7 @@
     "yeoman-generator"
   ],
   "dependencies": {
+    "async": "^0.9.0",
     "yeoman-generator": "^0.18.4"
   }
 }
