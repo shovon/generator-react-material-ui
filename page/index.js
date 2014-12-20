@@ -210,6 +210,10 @@ module.exports = generators.Base.extend({
       this.destinationPath(destpath + 'style.less'),
       { name: pagename }
     );
+    this.fs.copy(
+      this.templatePath('Page-test.js'),
+      this.destinationPath(destpath + '__tests__' + '/index-test.js')
+    );
 
     var appjsx = this.destinationPath('src/app.jsx');
     var file = fs.readFileSync(appjsx, 'utf-8');
