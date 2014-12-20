@@ -1,6 +1,7 @@
 var Fluxxor = require('Fluxxor');
 
 module.exports = Fluxxor.createStore({
+
   initialize: function () {
 
     // This is where you would initialize properties of your store. If you are
@@ -47,4 +48,5 @@ module.exports = Fluxxor.createStore({
 
     }
   }
+
 });
