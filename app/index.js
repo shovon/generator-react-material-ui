@@ -19,7 +19,6 @@ module.exports = generators.Base.extend({
   },
 
   writing: function () {
-    this.log(this.apptitle);
     this.fs.copyTpl(
       this.templatePath('src/index.html'),
       this.destinationPath('src/index.html'),
