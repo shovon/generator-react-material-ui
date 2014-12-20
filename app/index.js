@@ -36,7 +36,8 @@ module.exports = generators.Base.extend({
       'src/style/main.less',
       'src/style/README.md',
       'src/pages/HomePage/index.js',
-      'src/pages/HomePage/index.less'
+      'src/pages/HomePage/index.less',
+      'src/pages/HomePage/__tests__/index-test.js'
     ].forEach(function (filename) {
       this.fs.copy(
         this.templatePath(filename),
