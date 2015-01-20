@@ -15,6 +15,11 @@ module.exports = generators.Base.extend({
     var className = this.pagename.split(/\s+/).join('-');
 
     this.fs.copyTpl(
+      this.templatePath('Page-test.js'),
+      this.destinationPath(path.join(destination, '__tests__', 'index-test.js'))
+    );
+
+    this.fs.copyTpl(
       this.templatePath('Page.js'),
       this.destinationPath(path.join(destination, 'index.js')), {
         className: className,

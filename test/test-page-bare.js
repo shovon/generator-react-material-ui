@@ -30,7 +30,8 @@ describe('material-ui:page-bare', function () {
       react.run({}, function () {
         helpers.assertFile([
           'src/pages/GamePlayerPage/index.js',
-          'src/pages/GamePlayerPage/style.less'
+          'src/pages/GamePlayerPage/style.less',
+          'src/pages/GamePlayerPage/__tests__/index-test.js',
         ]);
 
         helpers.assertFileContent(
