@@ -1,4 +1,6 @@
 var React = require('react');
+var Fluxxor = require('Fluxxor');
+var <%= viewName %>View = require('../../views/<%= viewName %>View');
 
 // If you are going to be using stores, be sure to first load in the `Fluxxor`
 // module.
@@ -38,7 +40,7 @@ module.exports = React.createClass({
   render: function () {
     return (
       <div className='<%= className %>-page'>
-        <%= title %>
+        <<%= viewName %>View />
       </div>
     );
   }

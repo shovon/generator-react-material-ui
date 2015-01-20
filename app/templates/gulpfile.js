@@ -165,7 +165,7 @@ gulp.task('watch', function() {
 /*
  * Run the server.
  */
-gulp.task('server', ['watch'], function () {
+gulp.task('server', function () {
   return gulp.src(destPath)
     .pipe(webserver({
       livereload: true,
@@ -204,6 +204,11 @@ gulp.task('copy-material', function (done) {
  * The default is meant for development. Watches for changes, runs the builds,
  * and fires up a web server. Also opens a new browser tab to the application.
  */
-gulp.task('default', function () {
+gulp.task('develop', function () {
   return runsequence('build', ['watch', 'server']);
 });
+
+/*
+ * An alias to the `build` task.
+ */
+gulp.task('default', ['build']);

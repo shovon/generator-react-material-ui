@@ -1,7 +1,73 @@
 var generators = require('yeoman-generator');
-var async = require('async');
 var fs = require('fs');
+var path = require('path');
 
+var helpers = generators.test;
+
+module.exports = generators.Base.extend({
+  constructor: function () {
+    generators.Base.apply(this, arguments);
+    this.argument('pagename', {type: String, required: true});
+    this.argument('pagetitle', {type: String, required: true});
+    this.option('no-inject', { type: Boolean });
+  },
+  writing: function () {
+    var destination = path.join(
+      'src', 'pages', this._.classify(this.pagename) + 'Page'
+    );
+
+    // The CSS class name.
+    var className = this.pagename.split(/\s+/).join('-');
+
+    var generatePage = function () {
+      this.fs.copy(
+        this.templatePath('Page-test.js'),
+        this.destinationPath(path.join(destination, '__tests__', 'index-test.js'))
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('Page.js'),
+        this.destinationPath(path.join(destination, 'index.js')), {
+          className: className,
+          title: this.pagename.split(/\s+/).map(function (str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+          }).join(' ')
+        }
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('style.less'),
+        this.destinationPath(path.join(destination, 'style.less')),
+        {
+          className: className
+        }
+      );
+
+    }.bind(this);
+
+    generatePage();
+
+    if (this.options['no-inject']) {
+      return;
+    }
+
+    var pages = [{
+      name: this.pagename,
+      text: this.pagetitle
+    }];
+
+    var appjsx = this.destinationPath('src/app.jsx');
+    var file = fs.readFileSync(appjsx, 'utf-8');
+
+    var lines = file.split(/\r?\n/g);
+    var outfile = injectPages(lines, pages);
+    fs.writeFileSync(appjsx, outfile, 'utf-8');
+  }
+});
+
+/*
+ * Extract the lines in which we want to inject stuff.
+ */
 function extract(lines, beginningtag, endingtag) {
   var start = null;
   var end = null;
@@ -38,12 +104,18 @@ function extract(lines, beginningtag, endingtag) {
   }
 }
 
+/*
+ * This will create a class name.
+ */
 function getClassName(name) {
   var className =
     name.slice(0, 1).toUpperCase() + name.slice(1, name.length) + 'Page';
   return className;
 }
 
+/*
+ * Injects the requires.
+ */
 function injectRequire(lines, pages) {
   var props = extract(
     lines,
@@ -65,6 +137,9 @@ function injectRequire(lines, pages) {
   return first.concat(inbetween).concat(toInject).concat(last);
 };
 
+/*
+ * Injects the menu items.
+ */
 function injectMenuItems(lines, pages) {
   var props = extract(
     lines,
@@ -85,6 +160,9 @@ function injectMenuItems(lines, pages) {
   return first.concat(inbetween).concat(toInject).concat(last);
 }
 
+/*
+ * Inject the titles.
+ */
 function injectTitles(lines, pages) {
   var props = extract(
     lines,
@@ -105,6 +183,9 @@ function injectTitles(lines, pages) {
   return first.concat(inbetween).concat(toInject).concat(last);
 }
 
+/*
+ * Inject the routes.
+ */
 function injectRoutes(lines, pages) {
   var props = extract(
     lines,
@@ -126,10 +207,17 @@ function injectRoutes(lines, pages) {
   return first.concat(inbetween).concat(toInject).concat(last);
 }
 
+/*
+ * Merge the lines.
+ */
 function mergeLines(lines) {
+
   return lines.join('\n');
 }
 
+/*
+ * Inject the pages into the lines.
+ */
 function injectPages(lines, pages) {
   lines = injectRequire(lines, pages);
   lines = injectMenuItems(lines, pages);
@@ -138,94 +226,3 @@ function injectPages(lines, pages) {
 
   return mergeLines(lines);
 }
-
-module.exports = generators.Base.extend({
-  constructor: function () {
-    generators.Base.apply(this, arguments);
-  },
-
-  prompting: function () {
-    var done = this.async();
-
-    var prompt = function (options, callback) {
-      this.prompt(options, function (answers) {
-        if (!answers[options.name].trim()) {
-          this.log('Please enter a value');
-          // Async to prevent stack overflows.
-          setImmediate(function () {
-            prompt();
-          }.bind(this))
-        }
-        callback(null, answers)
-      }.bind(this));
-    }.bind(this);
-
-    async.waterfall([
-      function (callback) {
-        prompt({
-          type    : 'input',
-          name    : 'pagename',
-          message : 'Name of your page (e.g. users)'
-        }, function (err, answers) {
-          this.pagename = answers.pagename.trim();
-          callback(null);
-        }.bind(this));
-      }.bind(this),
-
-      function (callback) {
-        prompt({
-          type    : 'input',
-          name    : 'pagetitle',
-          message : 'What should be the page\'s title?'
-        }, function (err, answers) {
-          this.pagetitle = answers.pagetitle.trim();
-          callback(null);
-        }.bind(this));
-      }.bind(this)
-    ], function () {
-      done();
-    });
-  },
-
-  writing: function () {
-    var pagename = this.pagename.split(/\s+/).map(function (name, i) {
-      if (i === 0) { return name; }
-      return name.slice(0, 1).toUpperCase() + name.slice(1, name.length);
-    }).join('');
-    var pagenameClass =
-      pagename.slice(0, 1).toUpperCase() +
-      pagename.slice(1, pagename.length);
-    var title = this.pagetitle;
-    var destpath = 'src/pages/' + pagenameClass + 'Page/';
-    this.fs.copyTpl(
-      this.templatePath('Page.js'),
-      this.destinationPath(destpath + 'index.js'),
-      {
-        name: pagename,
-        title: title
-      }
-    );
-    this.fs.copyTpl(
-      this.templatePath('style.less'),
-      this.destinationPath(destpath + 'style.less'),
-      { name: pagename }
-    );
-    this.fs.copy(
-      this.templatePath('Page-test.js'),
-      this.destinationPath(destpath + '__tests__' + '/index-test.js')
-    );
-
-    var appjsx = this.destinationPath('src/app.jsx');
-    var file = fs.readFileSync(appjsx, 'utf-8');
-
-    var pages = [{
-      name: pagename,
-      text: title
-    }];
-
-    var lines = file.split(/\r?\n/g);
-    
-    var outfile = injectPages(lines, pages);
-    fs.writeFileSync(appjsx, outfile, 'utf-8');
-  }
-});

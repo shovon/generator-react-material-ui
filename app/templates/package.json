@@ -1,6 +1,7 @@
 {
   "scripts": {
-   "test": "jest"
+    "server": "gulp develop",
+    "test": "jest"
   },
   "devDependencies": {
     "browserify": "^6.3.3",
