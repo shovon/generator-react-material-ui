@@ -1,14 +1,43 @@
 var generators = require('yeoman-generator');
 var async = require('async');
-var storelib = require('../store/lib');
-var helpers = require('../helpers');
 var path = require('path');
-var lib = require('./lib');
 
 module.exports = generators.Base.extend({
   constructor: function () {
     generators.Base.apply(this, arguments);
+    this.argument('viewname', {type: String, required: true});
   },
-  prompting: lib.prompting,
-  writing: lib.writing
+  writing: function () {
+    var destination = path.join(
+      'src', 'views', this._.classify(this.viewname) + 'View'
+    );
+
+    var className = this.viewname.split(/\s+/).join('-');
+
+    this.fs.copy(
+      this.templatePath('View-test.js'),
+      this.destinationPath(
+        path.join(destination, '__tests__', 'index-test.js')
+      )
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('View.js'),
+      this.destinationPath(path.join(destination, 'index.js')),
+      {
+        className: className,
+        title: this.viewname.split(/\s+/).map(function (str) {
+          return str.charAt(0).toUpperCase() + str.slice(1);
+        }).join(' ')
+      }
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('style.less'),
+      this.destinationPath(path.join(destination, 'style.less')),
+      {
+        className: className
+      }
+    );
+  }
 });

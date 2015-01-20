@@ -20,8 +20,7 @@ describe('react-material-ui:page-bare', function () {
             'appPath': appPath,
             'skip-welcome-message': true,
             'skip-install': true,
-            'skip-message': true,
-            'pagename': 'game player'
+            'skip-message': true
           });
           done();
         });
