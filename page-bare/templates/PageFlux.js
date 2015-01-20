@@ -49,7 +49,7 @@ var flux = new Fluxxor.Flux(stores, actions);
 module.exports = React.createClass({
   render: function () {
     return (
-      <div className='<%= name %>-page'>
+      <div className='<%= className %>-page'>
         <<%= viewName %>View flux={flux} />
       </div>
     );

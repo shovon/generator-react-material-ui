@@ -59,7 +59,6 @@ module.exports = generators.Base.extend({
     // The CSS class name.
     var className = this.pagename.split(/\s+/).join('-');
 
-
     var generatePage = function () {
       this.fs.copy(
         this.templatePath('Page-test.js'),
