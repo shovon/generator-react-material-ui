@@ -24,7 +24,7 @@ describe('react-material-ui:page', function () {
         });
     });
 
-    it.only('should simply generate a new page', function (done) {
+    it('should simply generate a new page', function (done) {
       var generator =
         (path.basename(path.dirname(__dirname)) + ':page')
           .slice('generator-'.length);
