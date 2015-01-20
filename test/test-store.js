@@ -27,12 +27,13 @@ describe('react-material-ui:store', function () {
         });
     });
 
-    it('should generate an entirely new application', function () {
+    it('should generate an entirely new application', function (done) {
       react.run({}, function () {
         helpers.assertFile([
           'src/stores/GamePlayerStore/index.js',
           'src/stores/GamePlayerStore/__tests__/index-test.js',
         ]);
+        done();
       });
     });
   });

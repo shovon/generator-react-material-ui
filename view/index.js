@@ -102,12 +102,11 @@ module.exports = generators.Base.extend({
             (path.basename(path.dirname(__dirname)) + ':store')
               .slice('generator-'.length);
           helpers
-            .createGenerator(generator, deps, ['game player'], {
+            .createGenerator(generator, deps, [this.storename], {
               'appPath': this.destinationPath(),
               'skip-welcome-message': true,
               'skip-install': true,
-              'skip-message': true,
-              'storename': 'game player'
+              'skip-message': true
             })
             .run({}, generateView);
         }.bind(this));

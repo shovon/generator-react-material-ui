@@ -23,13 +23,17 @@ describe('react-material-ui:page-bare', function () {
         });
     });
 
-    it('should generate an entirely new application', function () {
+    it('should simply generate a new page', function (done) {
       var generator =
         (path.basename(path.dirname(__dirname)) + ':page-bare')
           .slice('generator-'.length);
 
       react = helpers
         .createGenerator(generator, deps, ['game player'], options);
+
+      helpers.mockPrompt(react, {
+        createview: false
+      });
 
       react.run({}, function () {
         helpers.assertFile([
@@ -47,6 +51,44 @@ describe('react-material-ui:page-bare', function () {
           'src/pages/GamePlayerPage/style.less',
           /\.game-player-page/
         );
+        done();
+      });
+    });
+
+    it('should generate a page with a view', function (done) {
+      var generator =
+        (path.basename(path.dirname(__dirname)) + ':page-bare')
+          .slice('generator-'.length);
+
+      react = helpers
+        .createGenerator(generator, deps, ['game player'], options);
+
+      helpers.mockPrompt(react, {
+        createview: true,
+        viewname: 'game player',
+        createstore: false
+      });
+
+      react.run({}, function () {
+        helpers.assertFile([
+          'src/pages/GamePlayerPage/index.js',
+          'src/pages/GamePlayerPage/style.less',
+          'src/pages/GamePlayerPage/__tests__/index-test.js',
+          'src/views/GamePlayerView/index.js',
+          'src/views/GamePlayerView/style.less',
+          'src/views/GamePlayerView/__tests__/index-test.js'
+        ]);
+
+        helpers.assertFileContent(
+          'src/pages/GamePlayerPage/index.js',
+          'var GamePlayerView = require(\'../../views/GamePlayerView\');'
+        );
+
+        helpers.assertFileContent(
+          'src/pages/GamePlayerPage/index.js',
+          '<GamePlayerView />'
+        );
+        done();
       });
     });
   });
