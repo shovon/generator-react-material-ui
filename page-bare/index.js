@@ -14,7 +14,7 @@ module.exports = generators.Base.extend({
     // The CSS class name.
     var className = this.pagename.split(/\s+/).join('-');
 
-    this.fs.copyTpl(
+    this.fs.copy(
       this.templatePath('Page-test.js'),
       this.destinationPath(path.join(destination, '__tests__', 'index-test.js'))
     );
