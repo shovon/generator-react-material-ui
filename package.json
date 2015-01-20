@@ -3,7 +3,7 @@
   "scripts": {
     "test": "mocha"
   },
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A generator for Material Design-inspired React application",
   "keywords": [
     "yeoman-generator",
