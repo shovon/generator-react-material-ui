@@ -204,6 +204,11 @@ gulp.task('copy-material', function (done) {
  * The default is meant for development. Watches for changes, runs the builds,
  * and fires up a web server. Also opens a new browser tab to the application.
  */
-gulp.task('default', function () {
+gulp.task('server', function () {
   return runsequence('build', ['watch', 'server']);
 });
+
+/*
+ * An alias to the `build` task.
+ */
+gulp.task('default', 'build');

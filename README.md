@@ -33,6 +33,24 @@ Available generators:
 
 **Note: Generators are to be run from the root directory of your app.**
 
+### react-material-ui
+
+Generates an entire React application.
+
+### react-material-ui:page
+
+Generates a page, that you can navigate by clicking on the navigation sidebar.
+
+This sub generator expects a name small case. If the name of the page is multi-word, use spaces to separate the words.
+
+### react-material-ui:view
+
+Generates a view that you can use in your page, or in other views.
+
+### react-material-ui:store
+
+Generates a data store class.
+
 ## Testing
 
 Running `npm test` will run the unit tests with Jest.

@@ -8,18 +8,18 @@ var injectTapEventPlugin = require("react-tap-event-plugin");
 // around a little. However, **BE CAREFUL WHILE DELETING SOME OF THE COMMENTS IN
 // THIS FILE; THE AUTO-GENERATORS RELY ON SOME OF THEM**.
 
-var HomePage = require('./pages/HomePage');
+// var HomePage = require('./pages/HomePage');
 // inject:pagerequire
 // endinject
 
 var menuItems = [
-  { payload: 'home', text: 'Home' },
+  // { payload: 'home', text: 'Home' },
   // inject:menuitems
   // endinject
 ];
 
 var titles = {
-  '/home': '<%= title %>',
+  // '/home': '<%= title %>',
   // inject:titles
   // endinject
 };
@@ -97,7 +97,7 @@ var Master = React.createClass({
 
 var routes = (
   <Route name='app' path='/' handler={Master}>
-    <Route name='home' handler={HomePage} />
+    {/* <Route name='home' handler={HomePage} /> */}
     {/* inject:route */}
     {/* endinject */}
     <DefaultRoute handler={HomePage} />
