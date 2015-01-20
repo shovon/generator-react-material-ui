@@ -21,7 +21,7 @@ module.exports = generators.Base.extend({
     this.fs.copyTpl(
       this.templatePath('src/app.jsx'),
       this.destinationPath('src/app.jsx'),
-      { title: this.apptitle }
+      { apptitle: this.apptitle }
     );
 
     this.fs.copy(
@@ -42,6 +42,31 @@ module.exports = generators.Base.extend({
         this.destinationPath(filename)
       );
     }.bind(this));
+
+    var pagePath = path
+      .resolve(this.templatePath(), '..', '..', 'page', 'templates');
+    this.fs.copyTpl(
+      path.join(pagePath, 'Page.js'),
+      this.destinationPath('src/pages/HomePage/index.js'),
+      {
+        className: 'home',
+        title: this.apptitle
+      }
+    );
+
+    this.fs.copyTpl(
+      path.join(pagePath, 'style.less'),
+      this.destinationPath('src/pages/HomePage/style.less'),
+      {
+        className: 'home',
+        title: this.apptitle
+      }
+    );
+
+    this.fs.copy(
+      path.join(pagePath, 'style.less'),
+      this.destinationPath('src/pages/HomePage/__tests__/index.js')
+    );
   },
 
   install: function () {
