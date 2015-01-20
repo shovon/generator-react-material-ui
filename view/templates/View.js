@@ -1,8 +1,7 @@
 var React = require('react');
 var helpers = require('../../helpers');
 
-// It looks like when generating this view, you chose not to generate a store.
-// If you wish to add a store, then you would `require` your store:
+// If you want to use a store for this view, you first load up a store:
 //
 //     var FooStore = require('../../stores/FooStore');
 //

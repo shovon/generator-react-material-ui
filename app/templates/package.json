@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "develop": "gulp server",
+    "server": "gulp develop",
     "test": "jest"
   },
   "devDependencies": {
@@ -16,8 +16,7 @@
     "jest-cli": "^0.2.1",
     "ncp": "^1.0.1",
     "reactify": "^0.17.1",
-    "vinyl-source-stream": "^1.0.0",
-    "gulp"
+    "vinyl-source-stream": "^1.0.0"
   },
   "dependencies": {
     "fluxxor": "^1.5.1",

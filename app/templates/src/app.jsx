@@ -13,13 +13,11 @@ var injectTapEventPlugin = require("react-tap-event-plugin");
 // endinject
 
 var menuItems = [
-  // { payload: 'home', text: 'Home' },
   // inject:menuitems
   // endinject
 ];
 
 var titles = {
-  // '/home': '<%= title %>',
   // inject:titles
   // endinject
 };
@@ -97,7 +95,6 @@ var Master = React.createClass({
 
 var routes = (
   <Route name='app' path='/' handler={Master}>
-    {/* <Route name='home' handler={HomePage} /> */}
     {/* inject:route */}
     {/* endinject */}
     <DefaultRoute handler={HomePage} />

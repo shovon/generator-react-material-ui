@@ -1,25 +1,12 @@
 var generators = require('yeoman-generator');
-var libPage = require('../page/lib');
+var path = require('path');
+
+var helpers = generators.test;
 
 module.exports = generators.Base.extend({
   constructor: function () {
     generators.Base.apply(this, arguments);
-  },
-
-  prompting: function () {
-    // Since prompting is done asynchronously, then grab a callback to notify
-    // the end of all prompts.
-    var done = this.async();
-
-    this.prompt({
-      type    : 'input',
-      name    : 'title',
-      message : 'The title of your project',
-      default : 'My App'
-    }, function (answers) {
-      this.apptitle = answers.title;
-      done();
-    }.bind(this));
+    this.argument('apptitle', {type: String, required: true});
   },
 
   writing: function () {
@@ -42,22 +29,15 @@ module.exports = generators.Base.extend({
       '.gitignore',
       'gulpfile.js',
       'package.json',
+      'src/helpers.js',
       'src/style/main.less',
-      'src/style/README.md',
-      // 'src/pages/HomePage/index.js',
-      // 'src/pages/HomePage/index.less',
-      // 'src/pages/HomePage/__tests__/index-test.js'
+      'src/style/README.md'
     ].forEach(function (filename) {
       this.fs.copy(
         this.templatePath(filename),
         this.destinationPath(filename)
       );
     }.bind(this));
-
-    this.pagename = 'home';
-    this.pagetitle = this.apptitle;
-
-    libPage.writing.call(this);
   },
 
   install: function () {

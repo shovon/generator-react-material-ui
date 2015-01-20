@@ -57,44 +57,5 @@ describe('react-material-ui:view', function () {
           done();
         });
     });
-
-    it('should generate a view with a store', function (done) {
-      var generator =
-        (path.basename(path.dirname(__dirname)) + ':view')
-          .slice('generator-'.length);
-
-      var react = helpers
-        .createGenerator(generator, deps, ['game player'], options)
-
-      helpers.mockPrompt(react);
-
-      react
-        .run({}, function () {
-          helpers.assertFile([
-            'src/views/GamePlayerView/style.less',
-            'src/views/GamePlayerView/index.js',
-            'src/views/GamePlayerView/__tests__/index-test.js',
-            'src/stores/GamePlayerStore/index.js',
-            'src/stores/GamePlayerStore/__tests__/index-test.js',
-          ]);
-
-          helpers.assertFileContent(
-            'src/views/GamePlayerView/index.js',
-            /\s+<div className='game-player-view'>\n\s+Game Player/
-          );
-
-          helpers.assertFileContent(
-            'src/views/GamePlayerView/style.less',
-            /\.game-player-view/
-          );
-
-          helpers.assertFileContent(
-            'src/views/GamePlayerView/index.js',
-            'mixins: [helpers.FluxMixin, StoreWatchMixin(\'GamePlayerStore\')],'
-          );
-
-          done();
-        });
-    });
   });
 });

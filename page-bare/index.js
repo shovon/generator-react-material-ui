@@ -8,47 +8,6 @@ module.exports = generators.Base.extend({
     generators.Base.apply(this, arguments);
     this.argument('pagename', {type: String, required: true});
   },
-  prompting: function () {
-    var done = this.async();
-    this.prompt([
-      {
-        name: 'createview',
-        type: 'confirm',
-        message: 'Would you like to create a view?'
-      },
-      {
-        when: function (response) {
-          return response.createview
-        },
-        name: 'viewname',
-        type: 'input',
-        message: 'Name of view?',
-        default: this.pagename
-      },
-      {
-        when: function (response) {
-          return response.createview
-        },
-        name: 'createstore',
-        type: 'confirm',
-        message: 'Would you like to create a store?'
-      },
-      {
-        when: function (response) {
-          return response.createstore
-        },
-        name: 'storename',
-        type: 'confirm',
-        message: 'Name of store?'
-      }
-    ], function (response) {
-      this.createview = response.createview;
-      this.viewname = response.viewname;
-      this.createstore = response.createstore;
-      this.storename = response.storename;
-      done();
-    }.bind(this));
-  },
   writing: function () {
     var done = this.async();
 
@@ -107,36 +66,6 @@ module.exports = generators.Base.extend({
       done();
     }.bind(this);
 
-    var deps = [
-      path.join(__dirname, '..', 'view')
-    ];
-
-    if (this.createview) {
-      helpers
-        .testDirectory(this.destinationPath(), function (err) {
-          if (err) { return done(err); }
-          var generator =
-            (path.basename(path.dirname(__dirname)) + ':view')
-              .slice('generator-'.length);
-
-          var react = helpers
-            .createGenerator(generator, deps, [this.viewname], {
-              'appPath': this.destinationPath(),
-              'skip-welcome-message': true,
-              'skip-install': true,
-              'skip-message': true
-            })
-
-          helpers.mockPrompt(react, {
-            createstore: this.createstore,
-            storename: this.storename
-          });
-
-          react.run({}, generatePage);
-        }.bind(this));
-
-      return;
-    }
     generatePage();
   }
 });
