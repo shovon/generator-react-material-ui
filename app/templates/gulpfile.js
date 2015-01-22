@@ -20,10 +20,11 @@ var paths = {
   style: ['src/style/*.less'],
   appjs: ['./src/app.jsx'],
   js: ['src/**/*.js'],
-  indexhtml: ['./src/index.html']
+  indexhtml: ['./src/index.html'],
+  assets: ['./assets/**']
 };
 
-// Here is where we will be sending all our files to.
+// Here is where we will be sending all our files.
 var destPath = './build'
 
 /*
@@ -88,6 +89,14 @@ gulp.task('js', function() {
     .pipe(gulp.dest(destPath));
 });
 
+/**
+ * Assets
+ */
+gulp.task('assets', function () {
+  return gulp.src(paths.assets)
+    .pipe(gulp.dest(path.join(destPath, 'assets')));
+});
+
 /*
  * Copies the index.html from the source directory to the build directory.
  */
@@ -132,7 +141,7 @@ gulp.task('build', function (done) {
   return runsequence(
     'clean',
     'copy-material',
-    ['style', 'less', 'js'],
+    ['style', 'less', 'js', 'assets'],
     'index',
     done
   );
