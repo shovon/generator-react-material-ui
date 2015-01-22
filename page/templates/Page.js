@@ -1,40 +1,59 @@
 var React = require('react');
+// var Reflux = require('reflux');
 
-// If you are going to be using stores, be sure to first load in the `Fluxxor`
-// module.
-//
-//     var Fluxxor = require('Fluxxor');
-//
-// If you want to leverage the use of stores, a suggestion would be to
-// initialize an object, and set it to a `stores` variable, and adding a new
-// instance of the store as a property to the object, like so:
-//
-//     var stores = {
-//       SomeStore: new SomeStore()
-//     };
-//
-// And also, because we are using the Flux architecture, you may also initialize
-// an object full of methods that represent "actions" that will be called upon
-// by a "dispatcher", like so:
-//
-//     var actions = {
-//       doSomething: function (info) {
-//         this.dispatch('DO_SOMETHING', {info: info});
-//       }
-//     };
-//
-// And finally, you would pass the stores and actions to our dispatcher, like
-// so:
-//
-//     var flux = new Fluxxor.Flux(stores, actions);
-//
-// And, then, you would pass in the reference of your dispatcher to the view
-// relies on the dispatcher (that view is returned by the `render` method), like
-// so:
-//
-//     <SomeView flux={flux} />
+// Imported Stores
+// var ReallyFancyStore = require('ReallyFancyStore');
 
 module.exports = React.createClass({
+
+  // This is how mixins are added. Mixins are plain JS objects which are used to manage state among other things.
+  // The mixin below (Reflix.ListenerMixin), add the 'listenTo' method which allows a component to register with a store. Every time the store calls it's 'trigger(event)' method, all components registered will be updated.
+  // mixins: [Reflux.ListenerMixin],
+
+  // Life-cycle methods - Mounting (http://facebook.github.io/react/docs/working-with-the-browser.html#mounting)
+  // -----------------------------
+
+  // Should return an object. Invoked before a component is mounted. Stateful components should implement this and return the initial state data.
+  // getInitialState: function(){ return {}},
+
+  // Invoked immediately after mounting occurs. Initialization that requires DOM nodes should go here.
+  // This is an example of how to register this component to listen to all updates to the 'ReallyFancyStore'.
+  // The registered function used should consume all arguments/objects emitted by the store.
+  
+  // componentDidMount: function() {
+  //   this.listenTo(ReallyFancyStore, this.onStatusChange);
+  // },
+  // onStatusChange: function(status) {
+  //   this.setState({
+  //     currentStatus: status
+  //   });
+  // },
+  
+  // Invoked immediately before mounting occurs.
+  // componentWillMount: function(){},
+
+  // Life-cycle methods - Updating (http://facebook.github.io/react/docs/working-with-the-browser.html#updating)
+  // -----------------------------
+  
+  // Invoked immediately before updating occurs. You cannot call this.setState() here.
+  // componentWillUpdate: function(nextProps, nextState){},
+  
+  // Invoked immediately after updating occurs.
+  // componentDidUpdate: function(prevProps, prevState){},
+  
+  // Life-cycle methods - Unmounting (http://facebook.github.io/react/docs/working-with-the-browser.html#unmounting)
+  // -------------------------------
+  
+  // Invoked immediately before a component is unmounted and destroyed. Cleanup should go here.
+  // componentWillUnmount: function(){},
+  
+  // Generally available component methods (http://facebook.github.io/react/docs/working-with-the-browser.html#mounted-methods)
+  // -------------------------------------
+  // this.forceUpdate() - Can be invoked on any mounted component when you know that some deeper aspect of the component's state has changed without using this.setState().
+  // this.setState(someObject) - Can be used to set component state (causes the component to be re-rendered)
+  // this.getDOMNode() - Returns a DOMElement. Can be invoked on any mounted component in order to obtain a reference to its rendered DOM node.
+
+  // Renders the actual component
   render: function () {
     return (
       <div className='<%= className %>-page'>
