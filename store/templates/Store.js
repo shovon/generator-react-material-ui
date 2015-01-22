@@ -1,52 +1,50 @@
-var Fluxxor = require('Fluxxor');
+var Reflux = require('reflux');
 
-module.exports = Fluxxor.createStore({
+// Imported Actions
+// var ReallyCoolActions = require('ReallyCoolActions');
 
-  initialize: function () {
+// Or ... create them here.
+// var MoreReallyCoolActions = Reflux.createActions(["fireBall","magicMissile"]);
 
-    // This is where you would initialize properties of your store. If you are
-    // initializing attributes asynchronously, then you may consider calling
-    // `this.emit('change')`.
-    //
-    // Example:
-    //
-    //     this.someAttribute = [];
-    //
-    //     request('/some-resource', function (err, res) {
-    //       this.someAttrubte = JSON.parse(res.data);
-    //       this.emit('change');
-    //     }.bind(this));
+// Creating Stores - (https://github.com/spoike/refluxjs#creating-data-stores)
+module.exports = Reflux.createStore({
+  
+  // This hook is called when the store is first loaded.
+  init: function(){},
 
-    // You may also want to bind some actions.
-    //
-    // Example:
-    //
-    //     this.bindActions(
-    //       'DO_SOMETHING', this.doSomething
-    //     );
+  // Mixins for stores are plain JS objects (ie. they can be anything - a great way to extend stores).
+  // ------
+  
+  // mixins: [],
 
-  },
+  // Registering actions is a one-liner...
+  // -------------------------------------
+  // listenables: MoreReallyCoolActions,
 
-  // If you bound some actions in the `initialize` method, then it may be best
-  // to have those actions refer to a method in this class. In this case, create
-  // the method here. Example:
-  //
-  //     doSomething: function () {
-  //       // Maybe do something with `this.someAttribute`?
-  //
-  //       // Call this if you've made some changes to this store.
-  //       this.emit('change');
-  //     },
+  // Listening to actions
+  // --------------------
+  // Imagine we did register the MoreReallyCoolActions above... 
+  // The action 'fireBall' would expect a method called 'onFireBall' and likewise a method for 'magicMissile' would be called 'onMagicMissile'.
+  // Therefore, the 'listenables' capability above expects stores to have camel-case functions prefixed by 'on' for all actions it is concerned with.
+  // Like so:
+  
+  // onFireBall: function(){
+  //   // whoooosh!
+  // },
+  // onMagicMissile: function(){
+  //   // bzzzzapp!
+  // }
+  
+  // Emitting events
+  // ---------------
+  
+  // Events are emitted with the 'trigger(args...)' method.
+  // For example:
+  //    this.trigger(someEvent)
 
-  getState: function () {
-    return {
-
-      // Whatever attributes you initialized in the `intialize` method, you
-      // should have it be returned here, like so:
-      //
-      //     someAttribute: this.someAttribute
-
-    }
-  }
+  // Generally available methods - (https://github.com/spoike/refluxjs#action-hooks)
+  // ---------------------------
+  // preEmit(event) - Called before the event is sent to components
+  // shouldEmit([preEmit() output]) - Returns a boolean. Determines if an event should be triggered.
 
 });
