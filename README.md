@@ -53,6 +53,7 @@ yo react-material-ui:page <pageName> '<Page Title>'
 Generates a page, that you can navigate by clicking on the navigation sidebar.
 
 This sub generator expects a page name with no spaces. 
+
 ***If the title of the page uses spaces to separate the words, enclose the title in quotes***.
 
 ### react-material-ui:view
