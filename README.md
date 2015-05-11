@@ -24,7 +24,7 @@ yo react-material-ui $APP_TITLE
 
 **Replace `$APP_TITLE`, with an actual string that represents your app's title!**
 
-Run `gulp` to preview your app
+Run `gulp server` to preview your app
 
 ## Generators
 
